@@ -1,0 +1,36 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Tile : MonoBehaviour
+{
+    [SerializeField] private Color baseColor, offsetColor;
+    [SerializeField] private SpriteRenderer rend;
+
+
+    public bool selectedTile = false;
+    [SerializeField] private GameObject highlight;
+    // Start is called before the first frame update
+
+    [Header("Settings")]
+    public int lane;
+    public bool hasPlant;
+
+
+    public void init(bool offset)
+    {
+        rend.color = offset ? offsetColor : baseColor;
+    }
+
+    public void Update()
+    {
+        if(selectedTile)
+        {
+            highlight.SetActive(true);
+        }
+        else
+        {
+            highlight.SetActive(false);
+        }
+    }
+}

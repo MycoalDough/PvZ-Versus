@@ -1,0 +1,132 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MovementTile : MonoBehaviour
+{
+    public int xAxis;
+    public int yAxis;
+
+    public GameObject parent;
+    public GameObject[] seedPackets;
+    public Transform currentPacket;
+
+    public GameObject canvas;
+    public int selectedSeed; 
+    public Transform tile;
+
+
+    public void Update()
+    {
+
+        movementOnGrid();
+
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            if(selectedSeed -1 != -1)
+            {
+                selectedSeed--;
+                changeSeed();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (selectedSeed + 1 != seedPackets.Length + 1)
+            {
+                selectedSeed++;
+                changeSeed();
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            plantPlant();
+        }
+    }
+
+    public void changeSeed()
+    {
+        for(int i = 0; i < seedPackets.Length; i++)
+        {
+            seedPackets[i].GetComponent<PlantPacket>().isSelected = false;
+        }
+        currentPacket = canvas.transform.Find("seedPacket " + selectedSeed);
+        currentPacket.gameObject.GetComponent<PlantPacket>().isSelected = true;
+    }
+
+    public void plantPlant()
+    {
+        GameObject newInstance = Instantiate(currentPacket.GetComponent<PlantPacket>().plantToPlace, tile.position, Quaternion.identity);
+        Plant newPlant = newInstance.gameObject.GetComponent<Plant>();
+        newPlant.lane = yAxis;
+    }
+    
+    public void movementOnGrid()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            if (yAxis + 1 != 5)
+            {
+                yAxis++;
+                changeTile();
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            if (yAxis - 1 != -1)
+            {
+                yAxis--;
+                changeTile();
+            }
+
+
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            if (xAxis - 1 != -1)
+            {
+                xAxis--;
+                changeTile();
+            }
+
+
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            if (xAxis + 1 != 11)
+            {
+                xAxis++;
+                changeTile();
+            }
+
+
+        }
+    }
+
+    public IEnumerator heldKey(int add, bool x)
+    {
+        yield return new WaitForSeconds(0.2f);
+        if(x)
+        {
+            xAxis = xAxis + add;
+        }
+        if (!x)
+        {
+            yAxis = yAxis + add;
+        }
+
+    }
+
+    public void changeTile()
+    {
+        for (int i = 0; i < parent.transform.childCount; i++)
+        {
+            parent.transform.GetChild(i).gameObject.GetComponent<Tile>().selectedTile = false;
+        }
+        
+        GameObject select = parent.transform.Find("Tile " + xAxis + " " + yAxis).gameObject;
+        Debug.Log("Tile " + xAxis + " " + yAxis);
+        select.GetComponent<Tile>().selectedTile = true;
+        tile = select.transform;
+    }
+}

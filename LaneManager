@@ -1,0 +1,5 @@
+public int zombLane0;
+public int zombLane1;
+public int zombLane2;
+public int zombLane3;
+public int zombLane4;

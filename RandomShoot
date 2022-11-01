@@ -1,0 +1,10 @@
+public Plant plant;
+public float minTime, maxTime;
+
+public void Update()
+{
+  if(plant.time == 0)
+  {
+    plant.speed = Random.Range(minTime, maxTime + 1);
+  }
+}

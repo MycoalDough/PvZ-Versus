@@ -61,6 +61,7 @@ public void OnCollisionEnter2D(Collider collision)
         PlantBullet pb = collision.gameObject.getComponent<PlantBullet>();
         pb.pirce--;
         health = health - int.Parse(collision.gameObject.name);
+        
       }
   }
 }

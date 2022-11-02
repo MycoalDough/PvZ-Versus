@@ -51,3 +51,16 @@ public void OnCollisionEnter2D(Collider collsion)
     collision.gameObject.GetComponent<PlantBullet>().pirce--;
   }
 }
+
+public void OnCollisionEnter2D(Collider collision)
+{
+  if(collision.collider.tag == "plantBullet")
+  {
+    if(collision.collider.gameObject.getComponent<PlantBullet>())
+      {
+        PlantBullet pb = collision.gameObject.getComponent<PlantBullet>();
+        pb.pirce--;
+        health = health - int.Parse(collision.gameObject.name);
+      }
+  }
+}

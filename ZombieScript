@@ -10,10 +10,15 @@ public int health;
 public float speed, time;
 public LaneManager lane;
 
+public bool hasPole = true;
 
+public float attackSpeed, attackTime;
+
+public int attackDMG;
 
 public void Awake()
 {
+hasPole = true;
   if(spawnInBushes)
   {
     //spawn in the bushes in their lane
@@ -46,12 +51,35 @@ public void move()
 
 public void OnCollisionEnter2D(Collider collsion)
 {
-  if(collsion.collider.tag == "plantBullet")
+  if(collsion.collider.tag == "Plant")
   {
-    collision.gameObject.GetComponent<PlantBullet>().pirce--;
+    moveSpeed -= 1;
+    
+    if(hasPole)
+    {
+        StartCourintine(jump(false));
+    }
+    else
+    {
+        attack(collision.gameObject);
+    }
+    
+    
   }
 }
 
+public void attack(GameObject hit)
+{
+  attackTime += Time.deltaTime;
+  
+  
+  if(attackTime > attackSpeed)
+  {
+    attackTime = 0;
+    hit.
+    
+  }
+}
 public void OnCollisionEnter2D(Collider collision)
 {
   if(collision.collider.tag == "plantBullet")

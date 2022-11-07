@@ -1,0 +1,12 @@
+Using Photon.Pun;
+
+public GameObject spawnIn;
+public int rngXMin; rngXMax;
+public int rngYMin; rngYMax;
+public void Update()
+{
+  if(Input.OnKeyDown(Keycode.Y))
+  {
+    PhotonNetwork.Instantiate(spawnIn.name, new Vector2(Random.Range(rngXMin, rngXMax), Random.Range(rngYMin, rngYMax), Quarternion.Identity));
+  }
+}

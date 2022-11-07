@@ -1,0 +1,31 @@
+[Header("Config")]
+public int health;
+public int damageReduction;
+public GameObject ZScript;
+
+public void Start()
+{
+  this.layer = ZScript.layer;
+}
+
+public void Update()
+{
+  if(health <= 0)
+  {
+    Destroy(gameObject);
+  }
+}
+
+public void TakeDamage(int dmg)
+{
+  health = health - (dmg / damageReduction);
+}
+
+public void OnTriggerEnter2D(Collision col)
+{
+  if(col.gameObject.tag == "PlantBullet")
+  {
+    int savedDMG = int.Parse(col.gameObject.tag.name);
+    TakeDamage(savedDMG);
+  }
+}

@@ -1,0 +1,36 @@
+public bool stage1;
+public bool stage2;
+public bool stage3;
+
+public int currentZombies;
+public int slayedZombies;
+
+public void Update()
+{
+  if(stage1)
+  {
+    
+  }
+}
+
+public void changeStages()
+{
+  if(slayedZombies > 5 && stage1)
+  {
+    stage1 = false;
+    stage2 = true;
+  }
+  
+    if(slayedZombies > 10 && stage2)
+  {
+    stage2 = false;
+    stage3 = true;
+  }
+  
+    if(slayedZombies > 15 && stage3)
+  {
+    stage2 = false;
+    stage3 = true;
+  }
+  
+}
